@@ -10,6 +10,7 @@
 
   --text-title: #E1E1E6;
   --text-body: #A8A8B3;
+  --divider-line: #29292E;
 
   --yellow: #EBA417;
   --light-blue: #61DCFB;
@@ -34,7 +35,9 @@ body {
 }
 
 body, input, textarea, select, button {
-  font: 400, 1 rem, "Roboto", sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  font-family: "Roboto", sans-serif;
 }
 
 button {
