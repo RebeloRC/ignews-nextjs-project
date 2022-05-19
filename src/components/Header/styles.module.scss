@@ -1,7 +1,6 @@
 .headerContainer {
   height: 5rem;
   border-bottom: 1px solid var(--divider-line);
-  margin: 0 10rem;
 }
 
 .headerContent {
@@ -51,5 +50,9 @@
         background: var(--yellow);
       }
     }
+  }
+
+  > button {
+    margin-left: auto;
   }
 }
