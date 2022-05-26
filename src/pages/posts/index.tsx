@@ -1,23 +1,16 @@
 import Head from 'next/head' 
+import { GetStaticProps } from 'next'
+import * as prismic from '@prismicio/client'
 
 import { client } from '../../services/prismic'
 import { RichText } from 'prismic-dom'
 
 import style from './styles.module.scss'
 
-
-export type DataDocumentsPrismic = {
-  title?: string,
-  content?: Array<{
-      type: string,
-      text: string
-  }>,
-}
-
 type Post = {
-  slug: string,
-  title: string,
-  excerpt: string,
+  slug: string;
+  title: string;
+  excerpt: string;
   updatedAt: string;
 };
 
@@ -36,7 +29,7 @@ export default function posts({ posts }: PostsProps) {
         <div className={style.posts}>
           { posts.map(post => (
           <a key={post.slug} href='#'>
-            <time>{post.updatedAt}12 de março de 2021</time>
+            <time>{post.updatedAt}</time>
             <strong>{post.title}</strong>
             <p>{post.excerpt}</p>
           </a>
@@ -48,18 +41,17 @@ export default function posts({ posts }: PostsProps) {
 
 }
 
-export const getStaticProps = async () => {
-  const response = await client.getAllByType
-  
-  ('publication', {
-    orderings: {
-      field: 'document.first_publication_date',
-      direction: 'desc',
+export const getStaticProps: GetStaticProps = async () => {
+
+
+  const response = await client.query([
+    prismic.predicate.at("document.type", "publication"),
+   ], {
+      fetch: ['publication.title', 'publication.content'],
+      pageSize: 100,
     },
-    fetch: ['publication.title', 'publication'],
-    pageSize: 100,
-    lang: 'pt-BR',
-  })
+);
+
 
   const posts = response.results.map(post => {
     return {
