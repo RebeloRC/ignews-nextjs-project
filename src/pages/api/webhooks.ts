@@ -66,7 +66,8 @@ import subscribe from './subscribe';
 
             await saveSubscription(
               checkoutSession.subscription.toString(),
-              checkoutSession.customer.toString()
+              checkoutSession.customer.toString(),
+              true
             )
 
             break;
